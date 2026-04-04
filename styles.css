@@ -1,0 +1,170 @@
+/* ==== GLOBAL ==== */
+body {
+  background-color: #f5f6fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ==== NAVBAR ==== */
+.navbar {
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #fff !important;
+}
+
+/* ==== DASHBOARD CARDS ==== */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+/* Colorful cards */
+.card.text-bg-success { background: linear-gradient(45deg, #28a745, #218838); color: #fff; }
+.card.text-bg-primary { background: linear-gradient(45deg, #007bff, #0056b3); color: #fff; }
+.card.text-bg-danger { background: linear-gradient(45deg, #dc3545, #a71d2a); color: #fff; }
+.card.text-bg-warning { background: linear-gradient(45deg, #ffc107, #d39e00); color: #212529; }
+
+/* ==== TABLE ==== */
+.table {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.table th {
+  background: #2a5298;
+  color: #fff;
+}
+
+/* ==== BUTTONS ==== */
+.btn-custom {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-custom:hover {
+  transform: scale(1.05);
+}
+
+/* ==== FLASH MESSAGES ==== */
+.alert {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* ==== FOOTER ==== */
+footer {
+  margin-top: 40px;
+  padding: 15px;
+  background: #2a5298;
+  color: #fff;
+  border-radius: 12px 12px 0 0;
+  font-size: 0.9rem;
+}
+/* ==== SIDEBAR ==== */
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: #2a5298;
+  position: sticky;
+  top: 0;
+}
+
+.sidebar .nav-link {
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.sidebar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.dashboard {
+  display: flex;
+  min-height: 80vh;
+}
+
+/* Right section: main content */
+.content {
+  flex: 1;
+  position: relative;
+  background: url("/static/image/dashboard-bg.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 20px;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Optional overlay on right side */
+.content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.1); /* subtle overlay so image is visible but text readable */
+  z-index: 0;
+}
+
+/* All content inside .content should be above overlay */
+.content > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* White card for event table or details */
+.event-details {
+  background: #fff;
+  color: #000;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+}
+
+/* Optional: make add-transaction-form also white card for consistency */
+#add-transaction-form {
+  background: #fff;
+  color: #000;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+  z-index: 2;
+}
+.chart-img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.chart-img:hover {
+  transform: scale(1.03);
+}
+

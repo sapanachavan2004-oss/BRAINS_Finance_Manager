@@ -1,0 +1,92 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<div class="container"> 
+<section class="left">
+ <!-- ADD TRANSACTION FORM -->
+<div id="add-transaction-form" class="card p-4 mb-4" style="display: none;">
+ <h4 class="mb-3"> Add Transaction</h4>
+ <form action="{{ url_for('add_transaction') }}" method="post">
+   <div class="mb-3">
+     <!--label class="form-label">Event</label> 
+     <input type="text" class="form-control" name="event_new" placeholder="Enter Event name" required>
+      </div>--> 
+      <label>Choose Existing Event: 
+        <select name="event_select"> 
+        <option value="">-- Select event --</option>
+         {% for ev in events %} 
+         <option value="{{ ev }}">{{ ev }}</option> {% endfor %} 
+        </select>
+       </label> 
+        <label>Add New Event: 
+          <input type="text" name="event_new" placeholder="New event name">
+         </label> 
+           <div class="mb-3">
+           <label class="form-label">Type</label> 
+          <select name="type" class="form-select"> 
+          <option value="income">credit</option>
+           <option value="expense">Debit</option>
+           </select>
+           </div>
+           <label>Year:
+  <select name="year" class="form-select">
+    {% for y in range(2024, current_year + 1) %}
+      <option value="{{ y }}">{{ y }}</option>
+    {% endfor %}
+  </select>
+</label>
+
+            <div class="mb-3"> 
+            <label class="form-label">Amount</label> 
+            <input type="number" name="amount" step="0.01" class="form-control" required>
+           </div> 
+           <div class="mb-3">
+             <label class="form-label">Description</label> 
+             <input type="text" name="description" class="form-control" required> 
+            </div>
+             <button type="submit" class="btn btn-success">💾 Submit</button>
+             </form> 
+            </div>
+             <!--<h2>Add Transaction</h2> 
+             <form action="{{ url_for('add_transaction') }}" method="post">
+              <label>Choose Existing Event: <select name="event_select">
+               <option value="">-- Select event --</option> 
+               {% for ev in events %}
+                <option value="{{ ev }}">{{ ev }}</option> 
+                {% endfor %}
+                 </select>
+                  </label>
+                   <label>Or Add New Event:
+                    <input type="text" name="event_new" placeholder="New event name">
+                     </label> <label>Type: 
+                     <select name="type">
+                      <option value="income">Credited (income)</option>
+                       <option value="expense">Debited (expense)</option> 
+                       </select> 
+                       </label>
+                        <label>Amount (₹): <input type="number" name="amount" step="0.01" required>
+                         </label> <label>Description:
+                          <input type="text" name="description" required>
+                           </label> <div class="form-row">
+                            <button type="submit">Add Transaction</button>
+                             </div>
+                              </form>
+                               <hr>
+                                <h3>Quick Event Links</h3>
+                                 <ul>
+                                  {% for ev in events %}
+                                   <li>
+                                   <a href="{{ url_for('view_event', event_name=ev) }}">
+                                   {{ ev }}</a></li> {% endfor %} </ul>-->
+                                   </section> 
+                                   <!--<aside class="right">
+                                    <h2>Predefined Event Categories</h2> 
+                                    {% for ev, descs in event_descriptions.items() %} <div class="card">
+ <h4>{{ ev }}</h4>
+<small>{{ descs|join(', ') }}
+ </small>
+ </div>
+{% endfor %} 
+  </aside>--> 
+</div>
+{% endblock %}

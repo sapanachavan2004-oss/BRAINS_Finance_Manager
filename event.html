@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="event-details container my-4">
+
+  <!-- Header: Event & Year Selection -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="fw-bold text-primary">📊 Event: {{ event }}</h2>
+
+    <form method="get" action="{{ url_for('view_event', event_name=event) }}">
+      <label for="year" class="me-2 fw-semibold">Select Year:</label>
+      <select name="year" id="year" class="form-select d-inline-block" style="width:150px;" onchange="this.form.submit()">
+        {% for y in range(2024, current_year + 1) %}
+          <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+
+  <h5 class="text-muted mb-4">Showing transactions for <strong>{{ year }}</strong></h5>
+
+  <!-- Summary Cards -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3 border-success border-2">
+        <h5 class="text-success">💰 Total Income</h5>
+        <p class="fs-5 fw-bold">₹{{ "%.2f"|format(income) }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3 border-danger border-2">
+        <h5 class="text-danger">💸 Total Expense</h5>
+        <p class="fs-5 fw-bold">₹{{ "%.2f"|format(expense) }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3 border-primary border-2">
+        <h5>📈 Remaining Balance</h5>
+        <p class="fs-5 fw-bold" style="color: {{ 'green' if remaining>0 else 'red' if remaining<0 else 'black' }}">
+          ₹{{ "%.2f"|format(remaining) }}
+        </p>
+        <p class="{{ health_level }} fw-semibold">{{ health }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts bg-light p-4 rounded shadow-sm mb-4">
+    <h4 class="text-center text-secondary mb-4">📊 Financial Charts ({{ year }})</h4>
+    <div class="row justify-content-center text-center">
+
+      <!-- Pie Chart -->
+      <div class="col-md-6 mb-4">
+        <h5 class="mb-3 text-dark">Expense Breakdown (Pie Chart)</h5>
+        <div class="border rounded bg-white shadow-sm p-2 d-flex justify-content-center">
+          <img src="{{ url_for('chart_expense_breakdown', event_name=event) }}?year={{ year }}&v={{ range(1,999999)|random }}"
+               alt="Expense Breakdown Chart"
+               class="img-fluid"
+               style="max-height:400px; width:auto;">
+        </div>
+      </div>
+
+      <!-- Bar Chart -->
+      <div class="col-md-6 mb-4">
+        <h5 class="mb-3 text-dark">Income vs Expense (Bar Chart)</h5>
+        <div class="border rounded bg-white shadow-sm p-2 d-flex justify-content-center">
+          <img src="{{ url_for('chart_income_vs_expense', event_name=event) }}?year={{ year }}&v={{ range(1,999999)|random }}"
+               alt="Income vs Expense Chart"
+               class="img-fluid"
+               style="max-height:400px; width:auto;">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Transactions Table -->
+  <h3 class="mt-4 fw-bold text-dark">🧾 Transactions ({{ year }})</h3>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle shadow-sm">
+      <thead class="table-primary text-center">
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Amount (₹)</th>
+          <th>Date</th>
+          <th>Year</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        {% if rows %}
+          {% for r in rows %}
+          <tr>
+            <td>{{ r['id'] }}</td>
+            <td>{{ r['type'] | capitalize }}</td>
+            <td>{{ r['description'] }}</td>
+            <td>₹{{ "%.2f"|format(r['amount']) }}</td>
+            <td>{{ r['date'][:10] }}</td>
+            <td>{{ r['year'] }}</td>
+            <td>
+              <a href="{{ url_for('edit_transaction', txn_id=r['id']) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+              <form method="post" action="{{ url_for('delete_transaction', txn_id=r['id']) }}" 
+                    class="d-inline" onsubmit="return confirm('Delete this transaction?')">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="7" class="text-center text-muted py-3">No transactions found for {{ year }}</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Buttons -->
+  <div class="mt-4 d-flex gap-2">
+    <a class="btn btn-success btn-lg" href="{{ url_for('generate_pdf', event_name=event) }}">
+      📄 Generate PDF Summary
+    </a>
+    <a class="btn btn-secondary btn-lg" href="{{ url_for('index') }}">
+      🔙 Back
+    </a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Edit Transaction #{{ row['id'] }}</h2>
+<form method="post">
+  <label>Event:
+    <input type="text" name="event" value="{{ row['event'] }}" disabled>
+  </label>
+  <label>Type:
+    <input type="text" name="type" value="{{ row['type'] }}" disabled>
+  </label>
+  <label>Amount:
+    <input type="number" step="0.01" name="amount" value="{{ row['amount'] }}" required>
+  </label>
+  <label>Description:
+    <input type="text" name="description" value="{{ row['description'] }}" required>
+  </label>
+  <input type="hidden" name="return_event" value="{{ row['event'] }}">
+  <div class="form-row">
+    <button type="submit" class="btn btn-warning btn-sm">Save</button>
+    <a href="{{ url_for('view_event', event_name=row['event']) }}">Cancel</a>
+  </div>
+</form>
+{% endblock %}
